@@ -12,18 +12,27 @@ functions:
     handler: handler.getProductList
     events:
       - http:
-        path: product/getProductsList
-        method: get
-        cors: true
+          path: products
+          method: get
+          cors: true
 
   get-product-by-id:
-    handler: handler.getProductById
+    handler: handler.getProductByID
     events:
       - http:
-        path: product/getProduct:{productId}
-        method: get
-        cors: true
+          path: products/{productId}
+          method: get
+          cors: true
 
 plugins:
   - serverless-webpack
   - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: "webpack.config.js"
+    includeModules: false
+    packager: "npm"
+    excludeFiles: product/**/*.test.js
+  serverless-offline:
+    httpPort: 3000

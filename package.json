@@ -2,7 +2,7 @@
   "name": "fresh-veggies-shop-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "handler.js",
   "scripts": {
     "start": "sls offline -P 3000 -o 0.0.0.0",
     "debug": "SLS_DEBUG=* sls offline -P 3000 -o 0.0.0.0",
