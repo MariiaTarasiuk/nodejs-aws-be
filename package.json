@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "sls offline -P 3000 -o 0.0.0.0",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "debug": "SLS_DEBUG=* sls offline -P 3000 -o 0.0.0.0",
+    "test": "jest --passWithNoTests",
+    "test:watch": "test --watch"
   },
   "repository": {
     "type": "git",
