@@ -1,0 +1,29 @@
+service: product-service
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-1
+  env: dev
+
+functions:
+  get-product-list:
+    handler: handler.getProductList
+    events:
+      - http:
+        path: product/getProductsList
+        method: get
+        cors: true
+
+  get-product-by-id:
+    handler: handler.getProductById
+    events:
+      - http:
+        path: product/getProduct:{productId}
+        method: get
+        cors: true
+
+  plugins:
+    - serverless-webpack
+    - serverless-offline
