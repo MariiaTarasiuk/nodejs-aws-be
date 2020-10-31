@@ -14,13 +14,6 @@ export async function getProductList(
       headers: CORS_HEADERS,
     });
   } catch (e) {
-    return callback(
-      {
-        headers: CORS_HEADERS,
-        statusCode: 500,
-        error: JSON.stringify({ e }),
-      },
-      null
-    );
+    callback(Error(e));
   }
 }

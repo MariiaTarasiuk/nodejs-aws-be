@@ -10,11 +10,10 @@ export async function getProductByID(
   try {
     const product = productList.products.find((product) => product.id === event.pathParameters.productId);
     if (!product) {
-      return callback(null, {
-        statusCode: 404,
+      return {
+        statusCode: 500,
         error: JSON.stringify(`Product with id ${event.pathParameters.productId} not found`),
-        headers: CORS_HEADERS,
-      });
+      };
     } else {
       return callback(null, {
         statusCode: 200,
@@ -23,11 +22,6 @@ export async function getProductByID(
       });
     }
   } catch (e) {
-    let response = {
-      headers: CORS_HEADERS,
-      statusCode: 500,
-      error: JSON.stringify({ e }),
-    };
-    return callback(null, response);
+    callback(Error(e));
   }
 }
