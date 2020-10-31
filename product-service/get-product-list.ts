@@ -2,7 +2,7 @@ import * as AWSLambda from "aws-lambda";
 import { CORS_HEADERS } from "./cors-headers";
 import productList from "./products.mock.json";
 
-export function getProductList(
+export async function getProductList(
   event: AWSLambda.APIGatewayEvent,
   _context: AWSLambda.Context,
   callback: AWSLambda.Callback
@@ -13,11 +13,14 @@ export function getProductList(
       body: JSON.stringify(productList),
       headers: CORS_HEADERS,
     });
-  } catch {
-    return callback(null, {
-      headers: CORS_HEADERS,
-      statusCode: 500,
-      error: "ERROR: can't get product list",
-    });
+  } catch (e) {
+    return callback(
+      {
+        headers: CORS_HEADERS,
+        statusCode: 500,
+        error: JSON.stringify({ e }),
+      },
+      null
+    );
   }
 }
