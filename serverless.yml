@@ -33,6 +33,6 @@ custom:
     webpackConfig: "webpack.config.js"
     includeModules: false
     packager: "npm"
-    excludeFiles: product/**/*.test.js
+    excludeFiles: product-service/**/*.test.js
   serverless-offline:
     httpPort: 3000
