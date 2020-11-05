@@ -1,0 +1,38 @@
+service: product-service
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-1
+  env: dev
+
+functions:
+  get-product-list:
+    handler: handler.getProductList
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true
+
+  get-product-by-id:
+    handler: handler.getProductByID
+    events:
+      - http:
+          path: products/{productId}
+          method: get
+          cors: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: "webpack.config.js"
+    includeModules: false
+    packager: "npm"
+    excludeFiles: product-service/**/*.test.js
+  serverless-offline:
+    httpPort: 3000

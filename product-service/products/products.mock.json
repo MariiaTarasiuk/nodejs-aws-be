@@ -1,0 +1,158 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "title": "Tomato, Roma",
+      "description": "Roma tomatoes are also known as Italian tomatoes or Italian plum tomatoes. Roma tomatoes are grown in the United States, Mexico. Used both for canning and producing tomato paste",
+      "price": 3.5,
+      "count": 42
+    },
+    {
+      "id": "2",
+      "title": "Tomato, Green",
+      "description": "Green tomatoes are under ripe tomatoes which are firm, sour and unpleasant taste. In cooked form, it becomes delightful, moist and adds bright flavor to sauces and other dishes. Generally, in Southern dish, green tomatoes are fried and coated in cornmeal and fried. Green tomatoes are light to dark lime green in color with firm skin. It is round or plumper with broad shoulders and its size varies from 4 to 10 centimeters in diameter. It has bright chartreuse flesh and firm center with tiny and underdeveloped seeds. It has crisp and mildly juicy texture and sharp or astringent flavor with slight sweetness. It does not look vibrant as red tomatoes but offers similar nutrients. In order to reap maximum benefits, choose green tomatoes with firm and smooth skin.",
+      "price": 3.2,
+      "count": 13
+    },
+    {
+      "id": "3",
+      "title": "Apple, Granny Smith",
+      "description": "The Granny Smith apple is tangy and tart. This is THE baking apple of choice as it has a deep dense texture that allows for longer cooking. It is a great choice for pies and cobblers and even baked on its own. The general rule is, tart apples are great for baking, whereas sweet apples make great hand fruit. Granny Smith apples are the gold standard for baking, and Fuji or Gala apples are more for eating out of hand. Golden Delicious or Red Delicious are not suitable for baking, what you are looking for are apples that have some tartness to them to stand up to the sugar in the recipe. The three major apple-growing regions in the U.S. are the States of Washington, New York, and Michigan.",
+      "price": 2.5,
+      "count": 5
+    },
+    {
+      "id": "4",
+      "title": "Apricot",
+      "description": "Apricots are petite, round to slightly oblong fruits with smooth and velvety skin. The skin often has a rosy blush, and can range in color from pale yellow, to golden, to a burnt orange, depending on the variety and how ripe they are. The flesh is smooth, juicy, tender, and sweet, with just a bit of tartness at the end. The flavor is often described as being somewhere between a peach and a plum. Apricots are classified as stone fruits or drupes, characterized by their thin skin, pulpy middle, and single, hard, central shell enclosing a pit or stone.",
+      "price": 3.5,
+      "count": 75
+    },
+    {
+      "id": "5",
+      "title": "Arugula",
+      "description": "Arugula greens consist of vibrantly green colored, deeply lobed leaves attached to a pale creamy-green hued stem. The leaves can be harvested when young for a mild flavor or when fully mature at 3 or 4 inches in length for maximum mustardy tones. However, those leaves allowed to mature too long on the arugula plant will become bitter in taste. Arugula offers an herbaceous, peppery flavor with a mustardy tang and nutty finish.",
+      "price": 6.15,
+      "count": 88
+    },
+    {
+      "id": "6",
+      "title": "Asparagus",
+      "description": "Standard asparagus only differs from other asparagus varieties in its size, as it is specifically grown and marketed to be 9 inches in length and 16 millimeters in diameter. Its deep pistachio-green stalks are tender at the tip and slightly woody and thick towards the end, and a slight purple blush often occurs around the stalk and throughout the conical tip. Standard Asparagus' mildly grassy and sweet flavor matches that of its larger and smaller counterparts.",
+      "price": 13.5,
+      "count": 62
+    },
+    {
+      "id": "7",
+      "title": "Avocado",
+      "description": "Standard asparagus only differs from other asparagus varieties in its size, as it is specifically grown and marketed to be 9 inches in length and 16 millimeters in diameter. Its deep pistachio-green stalks are tender at the tip and slightly woody and thick towards the end, and a slight purple blush often occurs around the stalk and throughout the conical tip. Standard Asparagus' mildly grassy and sweet flavor matches that of its larger and smaller counterparts.",
+      "price": 3,
+      "count": 91
+    },
+    {
+      "id": "8",
+      "title": "Bean, Green Romano",
+      "description": "Green Romano beans are broad and flattened in shape, averaging about five inches in length at maturity. The beans have a stringless seam that opens rather easily while still young. The pods cling loosely to a series of about six tiny lime green to white colored peas. The beans are crisp and fleshy in texture, extremely succulent, offering a subtlety sweet and grassy flavor.",
+      "price": 5.5,
+      "count": 19
+    },
+    {
+      "id": "9",
+      "title": "Beet, Red",
+      "description": "Red Forno beets are small to medium in size, averaging twelve centimeters in length and five centimeters in diameter, and are elongated, oval, to cylindrical in shape with one slender, tapered end. The roots are connected to long and crisp, multiple, maroon stems that are attached to deep green leaves with red veining. The root’s skin is semi-smooth, dark red, and firm with many small hairs covering the surface. Underneath the thin skin, the flesh is bright red to crimson, dense, and aqueous. Red Forno beets are crunchy when raw and when cooked, they develop a tender texture with a bold, earthy, and sweet flavor. The beet greens are also edible and have a semi-bitter taste similar to spinach and swiss chard.",
+      "price": 1.5,
+      "count": 10
+    },
+    {
+      "id": "10",
+      "title": "Berry, Blackberry",
+      "description": "Blackberries are characterized by their coloring, their unique composition and their flavor. Like raspberries, Blackberries are not technically a berry, but rather an aggregate fruit of individual drupes held together by very fine, nearly invisible hairs. Blackberries do not have a hollow center, instead they have a solid, edible core. When ripe, Blackberries have a deep inky sheen with purple highlights. They are succulent, soft, and juicy. Their flavor is sweet, slightly tart, with earthy undertones.",
+      "price": 23.5,
+      "count": 30
+    },
+    {
+      "id": "11",
+      "title": "Berry, Blueberry",
+      "description": "Blueberries grow on low creeping shrubs or tall erect bushes, depending upon variety. The small round berries can range in size from 5-16 millimeters in diameter. They first appear green, but ripen into a deep shade of dusty blue. The soft, hazy white coating that develops on the skins' surface, which is known as the bloom, is a natural waterproofing which helps protect the berries from the sun and other natural elements. Blueberries have a sweet and woodsy flavor with an acidity that can vary depending upon growing conditions. Long sunny days and warm temperatures develop a higher sugar content, while cooler temperatures and shorter days with limited sunlight increase acidity. After harvest some plants lose their leaves while other varieties retain their foliage year-round, becoming a colorful mix bronze, red and purple in the autumn.",
+      "price": 20.35,
+      "count": 33
+    },
+    {
+      "id": "12",
+      "title": "Berry, Strawberry",
+      "description": "Strawberries have an overall conical heart shape and can vary in size depending upon cultivar and growing conditions. All varieties of Strawberries have seeds on their exterior rather than their interior, which distinguishes them from a berry and a true fruit. They have a bright red sheen when fully ripe and a juicy yet firm texture. While sugar contents can vary from sweet-tart to candy-like syrup, Strawberries maintain a balanced acidity level.",
+      "price": 16.75,
+      "count": 67
+    },
+    {
+      "id": "13",
+      "title": "Berry, Raspberry",
+      "description": "Raspberries are an aggregate fruit of individual drupelets that are held together by very fine, nearly invisible hairs. They have a hollow core and are conical with an overall rounded shape. The hollow core is created when the Raspberry is separated from its growing receptacle. Their flavor can range from sweet-tart to low acid and jam-like depending on growing region and variety.",
+      "price": 13.95,
+      "count": 17
+    },
+    {
+      "id": "14",
+      "title": "Cucumber, Gherkin",
+      "description": "Gherkin cucumbers are generally small, averaging 4 to 8 centimeters in length, and have a cylindrical, oblong, to ovoid shape with rounded ends. The skin is firm, textured, and dark to light green, sometimes covered in many bumps. Underneath the surface, the flesh is crisp, pale green, aqueous, and contains a few small, edible seeds. Gherkin cucumbers are known for their crunchy, juicy consistency and have a mild, green, and vegetal flavor.",
+      "price": 3.5,
+      "count": 21
+    },
+    {
+      "id": "15",
+      "title": "Broccoli",
+      "description": "Broccoli grows like a tree with a thick, edible trunk that sprouts leaves, or branches and clusters of small, tight flower heads that turn bright green when cooked. Once fully mature or bolting, the flower buds will sprout golden yellow edible flowers.",
+      "price": 4.5,
+      "count": 2
+    },
+    {
+      "id": "16",
+      "title": "Cabbage, Green",
+      "description": "Green cabbage has numerous pale green leaves that are thick and broad with prominent veins and a slightly waxy finish. They overlap to form a dense round to oblate ball and can measure 15 to 18 centimeters in diameter and may weigh up to 10 pounds or 3.6 kilograms each. The leaves are firm when raw and tender when cooked. Green cabbage offers a sweet, grassy flavor with a mustardy finish referred to as ‘cruciferous,’ a trademark characteristic of Brassicas.",
+      "price": 2.5,
+      "count": 4
+    },
+    {
+      "id": "17",
+      "title": "Cabbage, Red",
+      "description": "Red cabbage is distinguished by its coloring, texture and flavor. Like Green cabbage it is rounded and wrapped in tightly wound waxy leaves. The leaves are more violet and burgundian versus true red. Their flavor is far more bold, cruciferous and peppery versus green cabbage, which is also due to the anthocyanin pigments. Red cabbage lacks water weight, which makes its leaves chewier and coarser than Chinese cabbage varieties.",
+      "price": 3.35,
+      "count": 18
+    },
+    {
+      "id": "18",
+      "title": "Carrot",
+      "description": "Carrots, depending on the variety, can range in size from small to large and typically average 10-25 centimeters in length. The roots have an elongated, slender shape that can be conical, cylindrical, or slightly irregular depending on growing conditions and the individual cultivar. The skin is smooth, firm, covered in tiny root hairs, and ranges in color from shades of orange, yellow, purple, black, red, to white. Underneath the surface, the flesh generally matches the skin color and is dense, crisp, and slightly aqueous with a snap-like quality. Carrots are crunchy when raw with a sweet or bitter, earthy flavor, and the leaves are also edible with an herbaceous, parsley-like taste.",
+      "price": 1.85,
+      "count": 25
+    },
+    {
+      "id": "19",
+      "title": "Citrus, Lemon",
+      "description": "Lemons are heavily utilized as a flavoring agent in various forms. The fruit is ovate with pointed ends. Its peel is semi-thick, porous and laden with essential oils. The bright yellow thin outer layer of the peel is very edible and used for multiple applications. When the peel is removed or zested it releases intense sweet citrus aromas. The flesh is translucent yellow and juicy when ripe. Its juice is highly acidic and tart, though extremely versatile in its uses. Depending on variety, lemons may contain no seeds or numerous seeds.",
+      "price": 7.5,
+      "count": 16
+    },
+    {
+      "id": "20",
+      "title": "Citrus, Orange",
+      "description": "Oranges are small to medium in size, averaging 5-10 centimeters in diameter, and are globular, oblate, or oval in shape. The rind ranges in color from orange, yellow, to green and is smooth with a leathery texture, dotted with many small oil glands across the surface that produce fragrant essential oil. Underneath the rind, there is a thin layer of white pith that is bitter and spongy. The flesh is juicy, also ranges in color from red, orange, to yellow, is filled with tightly packed pulp and juice sacs, and is divided into 10-14 segments by thin membranes. The flesh, depending on the variety, may also contain a few cream-colored seeds. Oranges are aromatic, juicy, and vary in flavor from sweet, acidic, tart, to sour.",
+      "price": 5.5,
+      "count": 9
+    },
+    {
+      "id": "21",
+      "title": "Citrus, Lime",
+      "description": "Limes are small in size, measuring 5-7 centimeters in height and 4-6 centimeters in diameter, and are globular to oblong in shape. The rind, also known as the peel, is thin, smooth and slightly bumpy with many small oil glands visible across the surface, and glossy green transitioning into a yellow hue with maturity. Underneath the rind, the flesh is soft, juicy, pale green, seedless or may contain a few small inedible seeds, and is divided into 10-12 sections by thin white membranes. Limes, depending on the variety, have an aromatic, floral scent with an acidic, tangy, and bright flavor with notes of pine and spice.",
+      "price": 9.25,
+      "count": 59
+    },
+    {
+      "id": "22",
+      "title": "Corn",
+      "description": "Yellow corn is a variety of sweet corn. Its ears are wrapped in tightly bound lime hued husks with silks and a tassel that extend out from the tip. The yellow kernels are packed in tight almost uniform rows. A single ear of corn can contain up to 400 kernels. Freshly harvested yellow corn at its peak ripeness is sweet, offering flavors of almond and sugar, the kernels so succulent, the skin pops as you bite into it. As the corn matures, the kernels lose their milky consistency giving way to a starchy and doughy consistency. At this point, the corn is considered a grain crop and is best suited for processing or feedstock.",
+      "price": 2.45,
+      "count": 8
+    }
+  ]
+}
