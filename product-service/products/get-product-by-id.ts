@@ -2,9 +2,17 @@ import * as AWSLambda from "aws-lambda";
 import { CORS_HEADERS } from "../cors-headers";
 import productList from "./products.mock.json";
 
+interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  count: number;
+}
+
 export const getProductByID = async (event: AWSLambda.APIGatewayEvent) => {
   try {
-    const product = productList.products.find((product) => product.id === event.pathParameters.productId);
+    const product: Product = productList.products.find((product) => product.id === event.pathParameters.productId);
     if (!product) {
       return {
         statusCode: 500,
