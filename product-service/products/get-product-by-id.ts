@@ -27,6 +27,10 @@ export const getProductByID = async (event: AWSLambda.APIGatewayEvent) => {
       };
     }
   } catch (e) {
-    Error(e.message);
+    return {
+      statusCode: 500,
+      error: JSON.stringify(Error(e.message)),
+      headers: CORS_HEADERS,
+    };
   }
 };

@@ -4,12 +4,17 @@ import productList from "./products.mock.json";
 
 export const getProductList = async (event: AWSLambda.APIGatewayEvent) => {
   try {
+    const produsts = productList.products;
     return {
       statusCode: 200,
-      body: JSON.stringify(productList),
+      body: JSON.stringify(produsts),
       headers: CORS_HEADERS,
     };
   } catch (e) {
-    Error(e).message;
+    return {
+      statusCode: 500,
+      error: JSON.stringify(Error(e)),
+      headers: CORS_HEADERS,
+    };
   }
 };
