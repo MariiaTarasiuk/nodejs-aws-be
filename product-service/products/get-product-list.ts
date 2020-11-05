@@ -1,5 +1,5 @@
 import * as AWSLambda from "aws-lambda";
-import { CORS_HEADERS } from "./cors-headers";
+import { CORS_HEADERS } from "../cors-headers";
 import productList from "./products.mock.json";
 
 export async function getProductList(

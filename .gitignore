@@ -36,6 +36,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+**/node_modules/
 
 # TypeScript v1 declaration files
 typings/
@@ -100,4 +101,6 @@ dist
 .tern-port
 
 package-lock.json
+**/package-lock.json
 .webpack/*
+**/.webpack/*

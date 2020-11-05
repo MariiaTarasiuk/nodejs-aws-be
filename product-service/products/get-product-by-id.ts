@@ -1,12 +1,8 @@
 import * as AWSLambda from "aws-lambda";
-import { CORS_HEADERS } from "./cors-headers";
+import { CORS_HEADERS } from "../cors-headers";
 import productList from "./products.mock.json";
 
-export async function getProductByID(
-  event: AWSLambda.APIGatewayEvent,
-  _context: AWSLambda.Context,
-  callback: AWSLambda.Callback
-) {
+export const getProductByID = async (event: AWSLambda.APIGatewayEvent) => {
   try {
     const product = productList.products.find((product) => product.id === event.pathParameters.productId);
     if (!product) {
@@ -15,13 +11,13 @@ export async function getProductByID(
         error: JSON.stringify(`Product with id ${event.pathParameters.productId} not found`),
       };
     } else {
-      return callback(null, {
+      return {
         statusCode: 200,
         body: JSON.stringify(product),
         headers: CORS_HEADERS,
-      });
+      };
     }
   } catch (e) {
-    callback(Error(e));
+    Error(e.message);
   }
-}
+};
