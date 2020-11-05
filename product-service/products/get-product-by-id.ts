@@ -9,6 +9,7 @@ export const getProductByID = async (event: AWSLambda.APIGatewayEvent) => {
       return {
         statusCode: 500,
         error: JSON.stringify(`Product with id ${event.pathParameters.productId} not found`),
+        headers: CORS_HEADERS,
       };
     } else {
       return {
