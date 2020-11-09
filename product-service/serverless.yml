@@ -6,13 +6,14 @@ provider:
   runtime: nodejs12.x
   region: eu-west-1
   env: dev
+  stage: ${opt:stage, 'dev'}
 
-environment:
-  DB_HOST: ${env:DB_HOST}
-  DB_PORT: ${env:DB_PORT}
-  DB_DATABASE: ${env:DB_DATABASE}
-  DB_USERNAME: ${env:DB_USERNAME}
-  DB_PASSWORD: ${env:DB_PASSWORD}
+  environment:
+    DB_HOST: ${env:DB_HOST}
+    DB_PORT: ${env:DB_PORT}
+    DB_DATABASE: ${env:DB_DATABASE}
+    DB_USERNAME: ${env:DB_USERNAME}
+    DB_PASSWORD: ${env:DB_PASSWORD}
 
 functions:
   get-product-list:
@@ -39,8 +40,15 @@ plugins:
 custom:
   webpack:
     webpackConfig: "webpack.config.js"
-    includeModules: false
+    includeModules:
+      forceInclude:
+        - pg
     packager: "npm"
     excludeFiles: product-service/**/*.test.js
+
+  dotenv:
+    path: ./.env.dev
+    required:
+      file: true
   serverless-offline:
     httpPort: 3000

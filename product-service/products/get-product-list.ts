@@ -1,20 +1,39 @@
 import * as AWSLambda from "aws-lambda";
 import { CORS_HEADERS } from "../cors-headers";
-import productList from "./products.mock.json";
+import { Client, ClientConfig } from "pg";
+
+const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD } = process.env;
+const dbOptions: ClientConfig = {
+  host: DB_HOST,
+  port: +DB_PORT,
+  database: DB_DATABASE,
+  user: DB_USERNAME,
+  password: DB_PASSWORD,
+  ssl: { rejectUnauthorized: false },
+  connectionTimeoutMillis: 5000,
+};
 
 export const getProductList = async (event: AWSLambda.APIGatewayEvent) => {
+  const client = new Client(dbOptions);
+
   try {
-    const produsts = productList.products;
+    await client.connect();
+    const { rows } = await client.query(`select * from products`);
+    console.log("SUCCESS data from DB: ", rows);
+
     return {
       statusCode: 200,
-      body: JSON.stringify(produsts),
+      body: JSON.stringify(rows),
       headers: CORS_HEADERS,
     };
   } catch (e) {
+    console.error("ERROR during DB request: ", e.message);
     return {
       statusCode: 500,
       error: JSON.stringify(Error(e)),
       headers: CORS_HEADERS,
     };
+  } finally {
+    client.end();
   }
 };
