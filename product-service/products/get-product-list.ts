@@ -18,7 +18,7 @@ export const getProductList = async (event: AWSLambda.APIGatewayEvent) => {
 
   try {
     await client.connect();
-    const { rows } = await client.query(`select * from products`);
+    const { rows } = await client.query(`select * from products p left join stocks s on p.id = s.product_id`);
     console.log("SUCCESS data from DB: ", rows);
 
     return {
