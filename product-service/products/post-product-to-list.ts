@@ -18,6 +18,8 @@ export const postProductToList = async (event: AWSLambda.APIGatewayEvent) => {
 
   try {
     const { title, description, price, count } = JSON.parse(event.body);
+    isQueryInValid(title, description, price, count);
+
     await client.connect();
     const {
       rows: [{ id }],
@@ -26,8 +28,8 @@ export const postProductToList = async (event: AWSLambda.APIGatewayEvent) => {
       description,
       price,
     ]);
-    console.log(`SUCCESS post product ${title}:`, id);
     await client.query(`insert into stocks (product_id, count) values ($1, $2)`, [id, count]);
+    console.log(`SUCCESS post product ${title}:`, id);
 
     return {
       statusCode: 200,
@@ -35,13 +37,36 @@ export const postProductToList = async (event: AWSLambda.APIGatewayEvent) => {
       headers: CORS_HEADERS,
     };
   } catch (e) {
-    console.error("ERROR during DB request: ", e.message);
     return {
-      statusCode: 500,
-      error: JSON.stringify(Error(e)),
+      statusCode: e.statusCode,
+      error: JSON.stringify(Error(e.message)),
       headers: CORS_HEADERS,
     };
   } finally {
     client.end();
   }
 };
+
+const isQueryInValid = (title, description, price, count) => {
+  if (
+    typeof price === "number" &&
+    price > 0 &&
+    typeof count === "number" &&
+    count > 0 &&
+    typeof title === "string" &&
+    title.length > 0 &&
+    typeof description === "string"
+  ) {
+    return;
+  }
+  throw new ApiError("InvalidParameters", 400, "invalid parameters");
+};
+
+export class ApiError extends Error {
+  private statusCode: number;
+  constructor(name: string, statusCode: number, message?: string) {
+    super(message);
+    this.name = name;
+    this.statusCode = statusCode;
+  }
+}

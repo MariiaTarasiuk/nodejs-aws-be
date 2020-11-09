@@ -13,14 +13,6 @@ const dbOptions: ClientConfig = {
   connectionTimeoutMillis: 5000,
 };
 
-interface Product {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  count: number;
-}
-
 export const getProductByID = async (event: AWSLambda.APIGatewayEvent) => {
   const client = new Client(dbOptions);
 
