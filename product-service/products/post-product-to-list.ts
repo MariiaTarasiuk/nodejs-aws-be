@@ -49,17 +49,16 @@ export const postProductToList = async (event: AWSLambda.APIGatewayEvent) => {
 
 const isQueryInValid = (title, description, price, count) => {
   if (
-    typeof price === "number" &&
-    price > 0 &&
-    typeof count === "number" &&
+    typeof price !== "number" &&
+    price < 0 &&
+    typeof count !== "number" &&
     count > 0 &&
-    typeof title === "string" &&
-    title.length > 0 &&
-    typeof description === "string"
+    typeof title !== "string" &&
+    title.length < 0 &&
+    typeof description !== "string"
   ) {
-    return;
+    throw new ApiError("InvalidParameters", 400, "invalid parameters");
   }
-  throw new ApiError("InvalidParameters", 400, "invalid parameters");
 };
 
 export class ApiError extends Error {
