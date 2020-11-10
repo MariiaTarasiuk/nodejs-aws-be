@@ -1,17 +1,7 @@
 import * as AWSLambda from "aws-lambda";
 import { CORS_HEADERS } from "../cors-headers";
-import { Client, ClientConfig, QueryResult } from "pg";
-
-const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD } = process.env;
-const dbOptions: ClientConfig = {
-  host: DB_HOST,
-  port: +DB_PORT,
-  database: DB_DATABASE,
-  user: DB_USERNAME,
-  password: DB_PASSWORD,
-  ssl: { rejectUnauthorized: false },
-  connectionTimeoutMillis: 5000,
-};
+import { Client, QueryResult } from "pg";
+import { dbOptions } from "./helper/db-config";
 
 export const getProductByID = async (event: AWSLambda.APIGatewayEvent) => {
   const client = new Client(dbOptions);
@@ -28,7 +18,7 @@ export const getProductByID = async (event: AWSLambda.APIGatewayEvent) => {
     console.log(`SUCCESS get product ${product_id}: `, rows);
     if (!rows) {
       return {
-        statusCode: 500,
+        statusCode: 404,
         error: JSON.stringify(`Product with id ${event.pathParameters.productId} not found`),
         headers: CORS_HEADERS,
       };
