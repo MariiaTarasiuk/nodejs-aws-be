@@ -1,0 +1,38 @@
+service: import-service
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-1
+  env: dev
+  stage: ${opt:stage, 'dev'}
+
+functions:
+  import-products-file:
+    handler: handler.importProductsFile
+    events:
+      - http:
+          path: import
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: "webpack.config.js"
+    includeModules:
+      forceInclude:
+        - pg
+    packager: "npm"
+    excludeFiles: import-service/**/*.test.js
+
+  serverless-offline:
+    httpPort: 3000
