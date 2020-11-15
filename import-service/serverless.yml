@@ -36,11 +36,11 @@ functions:
     handler: handler.importFileParser
     events:
       - s3:
-        bucket: app-import-storage
-        event: s3:ObjectCreated:*
-        rules:
-          - prefix: uploaded/
-        existing: true
+          bucket: app-import-storage
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true
 plugins:
   - serverless-webpack
   - serverless-offline

@@ -4,19 +4,17 @@ const csv = require("csv-parser");
 const BUCKET = "app-import-storage";
 
 export const importFileParser = (event: AWSLambda.S3Handler) => {
-  console.log("## TRIGGER file upload");
   const s3 = new AWS.S3({ region: "eu-west-1" });
-
+  console.log("START parse data");
   event.Records.forEach((record) => {
     const s3Stream = s3.getObject({ Bucket: BUCKET, Key: record.s3.object.key }).createReadStream();
 
     s3Stream
       .pipe(csv())
       .on("data", (data) => {
-        console.log("## GET DATA STREAM ", data);
+        console.log("DATA STREAM: ", data);
       })
       .on("end", async () => {
-        console.log(`COPY from ${BUCKET}/${record.s3.object.key}`);
         await s3
           .copyObject({
             Bucket: BUCKET,
@@ -24,6 +22,15 @@ export const importFileParser = (event: AWSLambda.S3Handler) => {
             Key: record.s3.object.key.replace("uploaded", "parsed"),
           })
           .promise();
+        console.log(`COPY from ${BUCKET}/${record.s3.object.key}`);
+
+        await s3
+          .deleteObject({
+            Bucket: BUCKET,
+            Key: record.s3.object.key,
+          })
+          .promise();
+        console.log(`DELETE - ${BUCKET}/${record.s3.object.key}`);
       });
   });
 };
