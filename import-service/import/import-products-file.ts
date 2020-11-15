@@ -11,7 +11,7 @@ export const importProductsFile = async (event: AWSLambda.APIGatewayEvent) => {
       s3.getSignedUrl("putObject", params, (err, url) => {
         if (err) return rej(err);
         res({
-          statusCode: 200,
+          statusCode: 202,
           headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Credentials": true },
           body: url,
         });

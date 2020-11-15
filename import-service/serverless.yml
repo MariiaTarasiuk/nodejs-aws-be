@@ -8,6 +8,18 @@ provider:
   env: dev
   stage: ${opt:stage, 'dev'}
 
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+      Resource:
+        - "arn:aws:s3:::app-import-storage"
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource:
+        - "arn:aws:s3:::app-import-storage/*"
+
 functions:
   import-products-file:
     handler: handler.importProductsFile
@@ -20,7 +32,15 @@ functions:
             parameters:
               querystrings:
                 name: true
-
+  import-file-parser:
+    handler: handler.importFileParser
+    events:
+      - s3:
+        bucket: app-import-storage
+        event: s3:ObjectCreated:*
+        rules:
+          - prefix: uploaded/
+        existing: true
 plugins:
   - serverless-webpack
   - serverless-offline
