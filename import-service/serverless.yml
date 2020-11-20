@@ -1,0 +1,56 @@
+service: import-service
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-1
+  env: dev
+  stage: ${opt:stage, 'dev'}
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+      Resource:
+        - "arn:aws:s3:::app-import-storage"
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource:
+        - "arn:aws:s3:::app-import-storage/*"
+
+functions:
+  import-products-file:
+    handler: handler.importProductsFile
+    events:
+      - http:
+          path: import
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
+  import-file-parser:
+    handler: handler.importFileParser
+    events:
+      - s3:
+          bucket: app-import-storage
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: "webpack.config.js"
+    includeModules: true
+    packager: "npm"
+    excludeFiles: import-service/**/*.test.js
+
+  serverless-offline:
+    httpPort: 3000
