@@ -48,9 +48,7 @@ plugins:
 custom:
   webpack:
     webpackConfig: "webpack.config.js"
-    includeModules:
-      forceInclude:
-        - pg
+    includeModules: true
     packager: "npm"
     excludeFiles: import-service/**/*.test.js
 

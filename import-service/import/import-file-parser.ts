@@ -15,22 +15,26 @@ export const importFileParser = (event: AWSLambda.S3Handler) => {
         console.log("DATA STREAM: ", data);
       })
       .on("end", async () => {
-        await s3
-          .copyObject({
-            Bucket: BUCKET,
-            CopySource: `${BUCKET}/${record.s3.object.key}`,
-            Key: record.s3.object.key.replace("uploaded", "parsed"),
-          })
-          .promise();
-        console.log(`COPY from ${BUCKET}/${record.s3.object.key}`);
+        try {
+          await s3
+            .copyObject({
+              Bucket: BUCKET,
+              CopySource: `${BUCKET}/${record.s3.object.key}`,
+              Key: record.s3.object.key.replace("uploaded", "parsed"),
+            })
+            .promise();
+          console.log(`COPY from ${BUCKET}/${record.s3.object.key}`);
 
-        await s3
-          .deleteObject({
-            Bucket: BUCKET,
-            Key: record.s3.object.key,
-          })
-          .promise();
-        console.log(`DELETE - ${BUCKET}/${record.s3.object.key}`);
+          await s3
+            .deleteObject({
+              Bucket: BUCKET,
+              Key: record.s3.object.key,
+            })
+            .promise();
+          console.log(`DELETE - ${BUCKET}/${record.s3.object.key}`);
+        } catch (error) {
+          console.log("## PARSE ERROR ##", error);
+        }
       });
   });
 };
