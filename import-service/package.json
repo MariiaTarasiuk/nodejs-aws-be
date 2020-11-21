@@ -36,6 +36,8 @@
   "dependencies": {
     "aws-sdk": "^2.792.0",
     "csv-parser": "^2.3.3",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "pg": "^8.5.1",
+    "serverless-dotenv-plugin": "^3.1.0"
   }
 }

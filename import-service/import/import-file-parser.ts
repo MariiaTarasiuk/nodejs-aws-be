@@ -1,10 +1,13 @@
 import * as AWS from "aws-sdk";
 import * as AWSLambda from "aws-lambda";
+
 const csv = require("csv-parser");
 const BUCKET = "app-import-storage";
 
 export const importFileParser = (event: AWSLambda.S3Handler) => {
   const s3 = new AWS.S3({ region: "eu-west-1" });
+  const sqs = new AWS.SQS({ region: "eu-west-1" });
+
   console.log("START parse data");
   event.Records.forEach((record) => {
     const s3Stream = s3.getObject({ Bucket: BUCKET, Key: record.s3.object.key }).createReadStream();
@@ -12,7 +15,9 @@ export const importFileParser = (event: AWSLambda.S3Handler) => {
     s3Stream
       .pipe(csv())
       .on("data", (data) => {
-        console.log("DATA STREAM: ", data);
+        sqs.sendMessage({ QueueUrl: process.env.SQS_URL, MessageBody: data }, () =>
+          console.log("ADD new item to SQS: ", data)
+        );
       })
       .on("end", async () => {
         try {
