@@ -1,9 +1,11 @@
 import * as AWSLambda from "aws-lambda";
 import { Client } from "pg";
-import { dbOptions } from "../helpres/db-config";
+import { dbOptions } from "../products/helper/db-config";
+import * as AWS from "aws-sdk";
 
 export const catalogBatchProcess = async (event: AWSLambda.SQSHandler) => {
   const DB = new Client(dbOptions);
+  const SNS = new AWS.SNS({ region: "eu-west-1" });
   try {
     await DB.connect();
     const products = event.Records.map(async ({ body }) => {
@@ -15,9 +17,20 @@ export const catalogBatchProcess = async (event: AWSLambda.SQSHandler) => {
         description,
         price,
       ]);
-      console.log("# add product to Products DB # ", id);
+      console.log("add product to Products: ", title);
       await DB.query(`insert into stocks (product_id, count) values ($1, $2)`, [id, count]);
-      console.log(`add product ${title} to stocks:`, id);
+      console.log(`add product ${title} to Stocks:`, id);
+      await SNS.publish(
+        {
+          Subject: "New product was added",
+          Message: JSON.stringify(title),
+          TopicArn: process.env.SNS_ARN,
+        },
+        (err, data) => {
+          if (err) console.log("ERROR: send email:", err, err.stack);
+          else console.log("Success: send email: ", data);
+        }
+      );
     });
     const results = await Promise.all(products);
   } catch (error) {
