@@ -86,7 +86,7 @@ custom:
     excludeFiles: import-service/**/*.test.js
 
   dotenv:
-    path: ../.env
+    path: ./.env
     required:
       file: true
   serverless-offline:
