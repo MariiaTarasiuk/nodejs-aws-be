@@ -18,19 +18,16 @@ export const catalogBatchProcess = async (event: AWSLambda.SQSHandler) => {
         price,
       ]);
       console.log("add product to Products: ", title);
-      await DB.query(`insert into stocks (product_id, count) values ($1, $2)`, [id, count]);
-      console.log(`add product ${title} to Stocks:`, id);
-      await SNS.publish(
-        {
+      if (!!id) {
+        const rows = await DB.query(`insert into stocks (product_id, count) values ($1, $2)`, [id, count]);
+        console.log(`add product ${title} to Stocks:`, id);
+        await SNS.publish({
           Subject: "New product was added",
           Message: JSON.stringify(title),
           TopicArn: process.env.SNS_ARN,
-        },
-        (err, data) => {
-          if (err) console.log("ERROR: send email:", err, err.stack);
-          else console.log("Success: send email: ", data);
-        }
-      );
+        }).promise();
+        console.log("Send update email");
+      }
     });
     const results = await Promise.all(products);
   } catch (error) {
