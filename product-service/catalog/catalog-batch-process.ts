@@ -24,6 +24,9 @@ export const catalogBatchProcess = async (event: AWSLambda.SQSHandler) => {
         await SNS.publish({
           Subject: "New product was added",
           Message: JSON.stringify(title),
+          MessageAttributes: {
+            isNormalProduct: { DataType: "String", StringValue: `${count >= 20}` },
+          },
           TopicArn: process.env.SNS_ARN,
         }).promise();
         console.log("Send update email");

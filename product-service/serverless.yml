@@ -45,6 +45,18 @@ resources:
         Protocol: email
         TopicArn:
           Ref: SNSTopic
+        FilterPolicy:
+          isNormalProduct: ["true"]
+
+    SNSSubscriptionLimitedProduct:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: ${env:SUBSCRIPTION_FAIL_ENDPOINT}
+        Protocol: email
+        Topic:
+          Ref: SNSTopic
+        FilterPolicy:
+          isNormalProduct: ["false"]
 
 functions:
   get-product-list:
