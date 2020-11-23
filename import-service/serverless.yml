@@ -19,6 +19,11 @@ provider:
         - "s3:*"
       Resource:
         - "arn:aws:s3:::app-import-storage/*"
+    - Effect: "Allow"
+      Action:
+        - "sqs:*"
+      Resource:
+        - ${env:SQS_ARN}
 
   environment:
     SQS_URL: ${env:SQSQueue}

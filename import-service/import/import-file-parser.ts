@@ -14,11 +14,14 @@ export const importFileParser = (event: AWSLambda.S3Handler) => {
 
     s3Stream
       .pipe(csv())
-      .on("data", (data) => {
-        sqs.sendMessage({ QueueUrl: process.env.SQS_URL, MessageBody: JSON.stringify(data) }, (err, data) => {
-          if (err) console.log("ERROR sending msg:", err, err.stack);
-          else console.log("ADD new item to SQS: ", data);
-        });
+      .on("data", async (data) => {
+        try {
+          await sqs.sendMessage({ QueueUrl: process.env.SQS_URL, MessageBody: JSON.stringify(data) }).promise();
+          console.log("ADD new item to SQS: ", data);
+        } catch (error) {
+          console.log(error);
+          throw new Error(error);
+        }
       })
       .on("end", async () => {
         try {
