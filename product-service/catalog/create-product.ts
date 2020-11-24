@@ -16,7 +16,6 @@ export const createProduct = async (product) => {
       ]);
 
       await client.query(`insert into stocks (product_id, count) values ($1, $2)`, [id, count]);
-      await client.query("INSERT");
 
       return { id, ...product };
     } else {

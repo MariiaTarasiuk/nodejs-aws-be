@@ -8,6 +8,7 @@ export const catalogBatchProcess = async (event: AWSLambda.SQSHandler) => {
     const products = event.Records.map(async ({ body }) => {
       const { title, description, price, count } = JSON.parse(body);
       const addedProduct = await createProduct({ title, description, price, count });
+      console.log("Product successfuly added to DB: ", addedProduct);
       if (addedProduct.id) {
         await SNS.publish({
           Subject: "New product was added",
