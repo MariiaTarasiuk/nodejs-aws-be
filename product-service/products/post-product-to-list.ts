@@ -3,13 +3,14 @@ import { CORS_HEADERS } from "../cors-headers";
 import { Client } from "pg";
 import { dbOptions } from "./helper/db-config";
 import { ApiError } from "./helper/api-error";
+import { isProductInValid } from "../catalog/create-product";
 
 export const postProductToList = async (event: AWSLambda.APIGatewayEvent) => {
   const client = new Client(dbOptions);
 
   try {
     const { title, description, price, count } = JSON.parse(event.body);
-    if (isQueryInValid(title, description, price, count)) {
+    if (isProductInValid({ title, description, price, count })) {
       await client.connect();
       const {
         rows: [{ id }],
@@ -38,22 +39,4 @@ export const postProductToList = async (event: AWSLambda.APIGatewayEvent) => {
   } finally {
     client.end();
   }
-};
-
-const isQueryInValid = (title, description, price, count) => {
-  if (
-    !!price &&
-    !!count &&
-    !!title &&
-    typeof price === "number" &&
-    price > 0 &&
-    typeof count === "number" &&
-    count > 0 &&
-    typeof title === "string" &&
-    title.length > 0 &&
-    typeof description === "string"
-  ) {
-    return true;
-  }
-  return false;
 };

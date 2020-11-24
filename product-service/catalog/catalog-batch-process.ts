@@ -7,19 +7,21 @@ export const catalogBatchProcess = async (event: AWSLambda.SQSHandler) => {
   try {
     const products = event.Records.map(async ({ body }) => {
       const { title, description, price, count } = JSON.parse(body);
-      await createProduct({ title, description, price, count });
-      await SNS.publish({
-        Subject: "New product was added",
-        Message: JSON.stringify(title),
-        MessageAttributes: {
-          isNormalProduct: { DataType: "String", StringValue: `${count >= 20}` },
-        },
-        TopicArn: process.env.SNS_ARN,
-      }).promise();
-      console.log("Send update email");
+      const addedProduct = await createProduct({ title, description, price, count });
+      if (addedProduct.id) {
+        await SNS.publish({
+          Subject: "New product was added",
+          Message: JSON.stringify(title),
+          MessageAttributes: {
+            isNormalProduct: { DataType: "String", StringValue: `${count >= 20}` },
+          },
+          TopicArn: process.env.SNS_ARN,
+        }).promise();
+        console.log("Send update email");
+      }
     });
     const results = await Promise.all(products);
   } catch (error) {
-    console.log("SOMETHING GOES WRONG: ", error);
+    console.log("SOMETHING GOES WRONG: ", error.message);
   }
 };
