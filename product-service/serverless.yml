@@ -53,7 +53,7 @@ resources:
       Properties:
         Endpoint: ${env:SUBSCRIPTION_FAIL_ENDPOINT}
         Protocol: email
-        Topic:
+        TopicArn:
           Ref: SNSTopic
         FilterPolicy:
           isNormalProduct: ["false"]
