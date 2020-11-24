@@ -6,7 +6,7 @@ export const createProduct = async (product) => {
   await client.connect();
   const { title, description, price, count } = product;
   try {
-    if (isProductInValid(product)) {
+    if (!isProductInValid(product)) {
       const {
         rows: [{ id }],
       } = await client.query(`insert into products (title, description, price) values ($1, $2, $3) returning id`, [
