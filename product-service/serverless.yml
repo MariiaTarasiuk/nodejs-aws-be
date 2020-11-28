@@ -8,12 +8,55 @@ provider:
   env: dev
   stage: ${opt:stage, 'dev'}
 
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "sqs:*"
+      Resource:
+        - Fn::GetAtt: [SQSQueue, Arn]
+    - Effect: "Allow"
+      Action:
+        - "sns:*"
+      Resource:
+        Ref: SNSTopic
+
   environment:
     DB_HOST: ${env:DB_HOST}
     DB_PORT: ${env:DB_PORT}
     DB_DATABASE: ${env:DB_DATABASE}
     DB_USERNAME: ${env:DB_USERNAME}
     DB_PASSWORD: ${env:DB_PASSWORD}
+    SNS_ARN: ${env:SNS_ARN}
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: import-service-sqs-queue
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: create-product-sns-topic
+    SNSSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: ${env:SUBSCRIPTION_ENDPOINT}
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+        FilterPolicy:
+          isNormalProduct: ["true"]
+
+    SNSSubscriptionLimitedProduct:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: ${env:SUBSCRIPTION_FAIL_ENDPOINT}
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+        FilterPolicy:
+          isNormalProduct: ["false"]
 
 functions:
   get-product-list:
@@ -39,6 +82,16 @@ functions:
           path: products
           method: post
           cors: true
+
+  catalog-batch-process:
+    handler: handler.catalogBatchProcess
+    events:
+      - sqs:
+          batchSize: 5
+          arn:
+            Fn::GetAtt:
+              - SQSQueue
+              - Arn
 
 plugins:
   - serverless-webpack

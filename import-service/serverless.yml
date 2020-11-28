@@ -19,6 +19,14 @@ provider:
         - "s3:*"
       Resource:
         - "arn:aws:s3:::app-import-storage/*"
+    - Effect: "Allow"
+      Action:
+        - "sqs:*"
+      Resource:
+        - ${env:SQS_ARN}
+
+  environment:
+    SQS_URL: ${env:SQSQueue}
 
 functions:
   import-products-file:
@@ -41,8 +49,10 @@ functions:
           rules:
             - prefix: uploaded/
           existing: true
+
 plugins:
   - serverless-webpack
+  - serverless-dotenv-plugin
   - serverless-offline
 
 custom:
@@ -52,5 +62,9 @@ custom:
     packager: "npm"
     excludeFiles: import-service/**/*.test.js
 
+  dotenv:
+    path: ./.env
+    required:
+      file: true
   serverless-offline:
     httpPort: 3000
