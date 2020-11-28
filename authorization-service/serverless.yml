@@ -1,0 +1,58 @@
+service: authorization-service
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-1
+  env: dev
+  stage: ${opt:stage, 'dev'}
+
+resources:
+  Resources:
+    GatewayResponseAccessDeied:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+        ResponseType: ACCESS_DENIED
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+    GatewayResponseUnauthorized:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+        ResponseType: UNAUTHORIZED
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+  Outputs:
+    AuthorizationARN:
+      Value:
+        - Fn::GetAtt: [BasicAuthorizerLambdaFunction, Arn]
+      Export:
+        Name:
+          - BasicAuthorizationARN
+
+functions:
+  basic-authorizer:
+    handler: handler.basicAuthorizer
+
+plugins:
+  - serverless-webpack
+  - serverless-dotenv-plugin
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: "webpack.config.js"
+    includeModules: false
+    excludeFiles: authorization-service/**/*.test.js
+  dotenv:
+    path: ./.env.dev
+    required:
+      file: true
+  serverless-offline:
+    httpPort: 3000
