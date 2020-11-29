@@ -9,35 +9,15 @@ provider:
   stage: ${opt:stage, 'dev'}
 
 resources:
-  Resources:
-    GatewayResponseAccessDeied:
-      Type: "AWS::ApiGateway::GatewayResponse"
-      Properties:
-        RestApiId:
-          Ref: "ApiGatewayRestApi"
-        ResponseType: ACCESS_DENIED
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-    GatewayResponseUnauthorized:
-      Type: "AWS::ApiGateway::GatewayResponse"
-      Properties:
-        RestApiId:
-          Ref: "ApiGatewayRestApi"
-        ResponseType: UNAUTHORIZED
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
   Outputs:
     AuthorizationARN:
-      Value:
-        - Fn::GetAtt: [BasicAuthorizerLambdaFunction, Arn]
       Export:
-        Name:
-          - BasicAuthorizationARN
+        Name: basicAuthorizer
+      Value:
+        Fn::GetAtt: [BasicAuthorizerLambdaFunction, Arn]
 
 functions:
-  basic-authorizer:
+  basicAuthorizer:
     handler: handler.basicAuthorizer
 
 plugins:

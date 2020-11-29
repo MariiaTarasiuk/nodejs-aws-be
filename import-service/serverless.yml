@@ -25,6 +25,18 @@ provider:
       Resource:
         - ${env:SQS_ARN}
 
+  resources:
+    Resources:
+      GatewayResponseAccessDeied:
+        Type: "AWS::ApiGateway::GatewayResponse"
+        Properties:
+          RestApiId:
+            Ref: "ApiGatewayRestApi"
+          ResponseType: ACCESS_DENIED
+          ResponseParameters:
+            gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+            gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+
   environment:
     SQS_URL: ${env:SQSQueue}
 
@@ -40,6 +52,11 @@ functions:
             parameters:
               querystrings:
                 name: true
+          authorizer:
+            name: basicAuthorizer
+            arn: ${env:AUTHORIZER_ARN}
+            identitySource: method.request.header.Authorization
+            type: token
   import-file-parser:
     handler: handler.importFileParser
     events:
@@ -63,7 +80,7 @@ custom:
     excludeFiles: import-service/**/*.test.js
 
   dotenv:
-    path: ./.env
+    path: ./.env.dev
     required:
       file: true
   serverless-offline:
