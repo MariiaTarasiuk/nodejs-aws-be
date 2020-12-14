@@ -1,0 +1,20 @@
+{
+  "name": "bff-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "MariiaTarasiuk",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./index.js",
+    "start:serv": "nodemon ./index.js",
+    "terminate": "eb terminate --all"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-cache": "^5.1.2",
+    "nodemon": "^2.0.6"
+  }
+}
